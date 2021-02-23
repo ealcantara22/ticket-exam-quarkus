@@ -5,6 +5,7 @@ import org.eclipse.microprofile.config.ConfigProvider;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "organization")
@@ -45,6 +46,12 @@ public class Organization extends PanacheEntityBase {
 	@NotBlank(message = "Zip Code field is required")
 	public String zip;
 
+	@Column(name = "created_dt")
+	public LocalDateTime created;
+
+	@Column(name = "updated_dt")
+	public LocalDateTime updated;
+
 	// TODO: organization logo once the file uploader is ready
 
 	/**
@@ -57,7 +64,14 @@ public class Organization extends PanacheEntityBase {
 	}
 
 	@PrePersist
-	public void setId() {
+	public void prePersist() {
 		this.id = ORGANIZATION_ID;
+		this.created = LocalDateTime.now();
+		this.updated = LocalDateTime.now();
+	}
+
+	@PreUpdate
+	public void preUpdate() {
+		this.updated = LocalDateTime.now();
 	}
 }

@@ -9,9 +9,9 @@ import org.mapstruct.MappingTarget;
 @Mapper(config = MapperConfig.class)
 public interface OrganizationMapper {
 
-	OrganizationResponse toResponse(Organization organization);
+	OrganizationResponse toResponse(Organization entity);
 
 	Organization toResource(OrganizationRequest requestData);
 
-	void map(OrganizationRequest requestData, @MappingTarget Organization organization);
+	void map(OrganizationRequest requestData, @MappingTarget Organization entity);
 }
