@@ -20,6 +20,10 @@ public class EmployeeService {
 	@Inject
 	Validator validator;
 
+	public Employee getById(Long id) {
+		return Employee.findById(id);
+	}
+
 	public Employee create(EmployeeRequest data) {
 
 		Employee duplicated = Employee.findByEmail(data.email);

@@ -70,4 +70,8 @@ public class User extends PanacheEntityBase {
 	public void preUpdate() {
 		updated = LocalDateTime.now();
 	}
+
+	public static User findByEmail(String email) {
+		return User.find("email", email).firstResult();
+	}
 }
