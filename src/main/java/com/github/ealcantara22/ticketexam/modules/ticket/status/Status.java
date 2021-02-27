@@ -1,10 +1,12 @@
 package com.github.ealcantara22.ticketexam.modules.ticket.status;
 
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "ticket_status")
-public class Status {
+public class Status extends PanacheEntityBase {
 
 	@Id
 	@Column(name = "id", updatable = false, nullable = false)

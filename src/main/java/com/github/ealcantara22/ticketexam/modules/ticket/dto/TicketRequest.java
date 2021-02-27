@@ -1,7 +1,18 @@
 package com.github.ealcantara22.ticketexam.modules.ticket.dto;
 
-import javax.enterprise.context.ApplicationScoped;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.quarkus.runtime.annotations.RegisterForReflection;
 
-@ApplicationScoped
+import java.time.LocalDateTime;
+import java.util.List;
+
+@RegisterForReflection
 public class TicketRequest {
+
+	public String subject;
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+	public LocalDateTime date;
+	public String description;
+	public Long statusId;
+	public List<Long> employees;
 }

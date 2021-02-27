@@ -2,7 +2,7 @@ package com.github.ealcantara22.ticketexam.modules.ticket.entry;
 
 import com.github.ealcantara22.ticketexam.modules.employee.Employee;
 import com.github.ealcantara22.ticketexam.modules.ticket.Ticket;
-import com.github.ealcantara22.ticketexam.modules.ticket.status.Status;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "ticket_entry")
-public class Entry {
+public class Entry extends PanacheEntityBase {
 
 	@Id
 	@Column(name = "id", updatable = false, nullable = false)
