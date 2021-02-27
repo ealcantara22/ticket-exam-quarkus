@@ -10,9 +10,9 @@ import java.util.List;
 public class TicketRequest {
 
 	public String subject;
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
-	public LocalDateTime date;
 	public String description;
 	public Long statusId;
-	public List<Long> employees;
+	public List<Long> employeeIds;
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+	public LocalDateTime date;
 }

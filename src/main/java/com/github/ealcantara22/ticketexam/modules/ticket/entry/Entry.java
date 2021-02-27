@@ -40,4 +40,21 @@ public class Entry extends PanacheEntityBase {
 	@NotNull(message = "Ticket entry employee field is required")
 	@JoinColumn(name="employee_id", nullable=false)
 	public Employee employee;
+
+	@Column(name = "created_dt")
+	public LocalDateTime created;
+
+	@Column(name = "updated_dt")
+	public LocalDateTime updated;
+
+	@PrePersist
+	public void prePersist() {
+		created = LocalDateTime.now();
+		updated = LocalDateTime.now();
+	}
+
+	@PreUpdate
+	public void preUpdate() {
+		updated = LocalDateTime.now();
+	}
 }

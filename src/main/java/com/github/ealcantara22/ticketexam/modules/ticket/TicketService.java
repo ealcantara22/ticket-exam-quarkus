@@ -1,14 +1,11 @@
 package com.github.ealcantara22.ticketexam.modules.ticket;
 
-import com.github.ealcantara22.ticketexam.modules.employee.Employee;
-import com.github.ealcantara22.ticketexam.modules.employee.dto.EmployeeRequest;
 import com.github.ealcantara22.ticketexam.modules.ticket.dto.TicketRequest;
 import com.github.ealcantara22.ticketexam.modules.user.User;
 import com.github.ealcantara22.ticketexam.providers.validator.Validator;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.ws.rs.BadRequestException;
 
 @ApplicationScoped
 public class TicketService {
