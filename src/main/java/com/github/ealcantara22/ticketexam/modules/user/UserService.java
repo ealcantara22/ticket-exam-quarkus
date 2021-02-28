@@ -6,7 +6,6 @@ import com.github.ealcantara22.ticketexam.modules.security.Security;
 import com.github.ealcantara22.ticketexam.modules.security.dto.LoginRequest;
 import com.github.ealcantara22.ticketexam.providers.validator.Validator;
 import io.quarkus.elytron.security.common.BcryptUtil;
-import io.quarkus.security.UnauthorizedException;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.wildfly.security.password.Password;
 import org.wildfly.security.password.PasswordFactory;
@@ -17,7 +16,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotAuthorizedException;
-import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.ServerErrorException;
 import javax.ws.rs.core.Response;
 import java.time.LocalDateTime;
 
@@ -76,7 +75,7 @@ public class UserService {
 		try {
 			isVerified = verifyPassword(data.password, user.password);
 		} catch (Exception exception) {
-			throw new WebApplicationException(exception.getCause(), Response.Status.INTERNAL_SERVER_ERROR);
+			throw new ServerErrorException(Response.Status.INTERNAL_SERVER_ERROR, exception.getCause());
 		}
 
 		if (!isVerified)

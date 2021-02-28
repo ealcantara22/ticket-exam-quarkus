@@ -9,6 +9,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import java.time.Instant;
@@ -44,7 +45,7 @@ public class SecurityService {
 
 	public User getLoggedUser() {
 		if (identity.getPrincipal() == null)
-			throw new WebApplicationException(Response.Status.UNAUTHORIZED);
+			throw new NotAuthorizedException(Response.Status.UNAUTHORIZED);
 
 		return userService.getByEmail(identity.getPrincipal().getName());
 	}

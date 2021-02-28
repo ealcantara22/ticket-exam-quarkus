@@ -1,8 +1,5 @@
 package com.github.ealcantara22.ticketexam.modules.ticket;
 
-import com.github.ealcantara22.ticketexam.modules.employee.Employee;
-import com.github.ealcantara22.ticketexam.modules.employee.dto.EmployeeRequest;
-import com.github.ealcantara22.ticketexam.modules.employee.dto.EmployeeResponse;
 import com.github.ealcantara22.ticketexam.modules.security.Security;
 import com.github.ealcantara22.ticketexam.modules.security.SecurityService;
 import com.github.ealcantara22.ticketexam.modules.ticket.dto.TicketRequest;
