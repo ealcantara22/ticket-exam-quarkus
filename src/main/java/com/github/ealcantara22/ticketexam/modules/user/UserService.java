@@ -3,10 +3,10 @@ package com.github.ealcantara22.ticketexam.modules.user;
 import com.github.ealcantara22.ticketexam.modules.employee.Employee;
 import com.github.ealcantara22.ticketexam.modules.employee.dto.EmployeeRequest;
 import com.github.ealcantara22.ticketexam.modules.security.Security;
+import com.github.ealcantara22.ticketexam.modules.security.SecurityService;
 import com.github.ealcantara22.ticketexam.modules.security.dto.LoginRequest;
 import com.github.ealcantara22.ticketexam.providers.validator.Validator;
 import io.quarkus.elytron.security.common.BcryptUtil;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.wildfly.security.password.Password;
 import org.wildfly.security.password.PasswordFactory;
 import org.wildfly.security.password.interfaces.BCryptPassword;
@@ -49,7 +49,7 @@ public class UserService {
 		user.roles = security.roles;
 
 		// Generating and encrypting user password
-		user.plainPassword = RandomStringUtils.randomAlphanumeric(20);
+		user.plainPassword = SecurityService.generateRandomString(20);
 		user.password = BcryptUtil.bcryptHash(user.plainPassword);
 
 		// TODO: create Roles entity or ENUM and validate

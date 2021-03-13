@@ -2,6 +2,9 @@ package com.github.ealcantara22.ticketexam.modules.ticket.entry;
 
 import com.github.ealcantara22.ticketexam.modules.security.Security;
 import com.github.ealcantara22.ticketexam.modules.security.SecurityService;
+import com.github.ealcantara22.ticketexam.modules.ticket.Ticket;
+import com.github.ealcantara22.ticketexam.modules.ticket.TicketResource;
+import com.github.ealcantara22.ticketexam.modules.ticket.TicketService;
 import com.github.ealcantara22.ticketexam.modules.ticket.dto.EntryRequest;
 import com.github.ealcantara22.ticketexam.modules.ticket.dto.EntryResponse;
 import com.github.ealcantara22.ticketexam.modules.user.User;
@@ -37,6 +40,9 @@ public class EntryResource {
 	@Inject
 	SecurityService securityService;
 
+	@Inject
+	TicketService ticketService;
+
 	public static final String ENTRY_NOT_FOUND = "Entry not found";
 
 	@GET
@@ -57,7 +63,11 @@ public class EntryResource {
 	@SecurityRequirement(name = Security.OPEN_API_SCHEME_NAME)
 	public Response create(@PathParam("ticketId") Long ticketId, EntryRequest requestData) {
 
-		Entry entity = entryService.create(securityService.getLoggedUser(), requestData);
+		Ticket ticket = ticketService.getById(ticketId);
+		if (ticket == null)
+			throw new NotFoundException(TicketResource.TICKET_NOT_FOUND);
+
+		Entry entity = entryService.create(securityService.getLoggedUser(), ticket, requestData);
 		return Response
 			.status(201)
 			.entity(entryMapper.toResponse(entity))
@@ -82,6 +92,7 @@ public class EntryResource {
 	@DELETE
 	@Path("/{ticketId}/entries/{id}")
 	@SecurityRequirement(name = Security.OPEN_API_SCHEME_NAME)
+	@Transactional
 	public Response delete(@PathParam("ticketId") Long ticketId, @PathParam("id") Long id) {
 
 		Entry entity = entryService.getById(id);

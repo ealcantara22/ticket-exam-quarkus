@@ -1,5 +1,6 @@
 package com.github.ealcantara22.ticketexam.modules.ticket.entry;
 
+import com.github.ealcantara22.ticketexam.modules.ticket.Ticket;
 import com.github.ealcantara22.ticketexam.modules.ticket.dto.EntryRequest;
 import com.github.ealcantara22.ticketexam.modules.user.User;
 import com.github.ealcantara22.ticketexam.providers.validator.Validator;
@@ -24,14 +25,16 @@ public class EntryService {
 		return Entry.findById(id);
 	}
 
-	public Entry create(User logged, EntryRequest data) {
+	public Entry create(User logged, Ticket ticket, EntryRequest data) {
 
 		// instance and validation
 		Entry entry = entryMapper.toResource(data);
-		validator.validate(entry);
 
 		// additional data
 		entry.employee = logged.employee;
+		entry.ticket = ticket;
+
+		validator.validate(entry);
 
 		Entry.persist(entry);
 		return entry;
