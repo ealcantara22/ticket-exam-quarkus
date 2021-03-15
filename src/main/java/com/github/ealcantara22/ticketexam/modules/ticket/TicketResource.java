@@ -2,8 +2,10 @@ package com.github.ealcantara22.ticketexam.modules.ticket;
 
 import com.github.ealcantara22.ticketexam.modules.security.Security;
 import com.github.ealcantara22.ticketexam.modules.security.SecurityService;
+import com.github.ealcantara22.ticketexam.modules.ticket.dto.StatusResponse;
 import com.github.ealcantara22.ticketexam.modules.ticket.dto.TicketRequest;
 import com.github.ealcantara22.ticketexam.modules.ticket.dto.TicketResponse;
+import com.github.ealcantara22.ticketexam.modules.ticket.status.Status;
 import com.github.ealcantara22.ticketexam.modules.user.User;
 import org.eclipse.microprofile.openapi.annotations.enums.SecuritySchemeType;
 import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement;
@@ -16,6 +18,7 @@ import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Path("/api/tickets")
 @Produces(MediaType.APPLICATION_JSON)
@@ -76,6 +79,13 @@ public class TicketResource {
 		User logged = securityService.getLoggedUser();
 
 		return ticketMapper.toResponse(ticketService.update(logged, entity, requestData));
+	}
+
+	@GET
+	@Path("/status")
+	@SecurityRequirement(name = Security.OPEN_API_SCHEME_NAME)
+	public List<StatusResponse> statusList() {
+		return ticketMapper.toResponse(ticketService.statusList());
 	}
 
 }
